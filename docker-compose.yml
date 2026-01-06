@@ -1,0 +1,42 @@
+version: '3.5'
+
+services:
+  postgres-odoo-base:
+    container_name: postgres_odoo-base
+    image: postgres:10-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_USER: ${POSTGRES_USER:-odoo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-odoo}
+      PGDATA: /data/postgres
+    volumes:
+       - /home/ttdn/ttdn_k15/database_ttdn/_data:/data/postgres
+    ports:
+      - "5431:5432"
+    # networks:
+    #   - postgres
+    # restart: unless-stopped
+
+  # pgadmin:
+  #   container_name: pgadmin_container
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+  #     PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+  #     PGADMIN_CONFIG_SERVER_MODE: 'False'
+  #   volumes:
+  #      - pgadmin:/root/.pgadmin
+
+  #   ports:
+  #     - "${PGADMIN_PORT:-5050}:80"
+  #   networks:
+  #     - postgres
+  #   restart: unless-stopped
+
+#networks:
+#  postgres:
+#    driver: bridge
+
+#volumes:
+#    postgres:
+#    pgadmin:

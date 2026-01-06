@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_cham_cong_form" model="ir.ui.view">
+            <field name="name">cham_cong.form</field>
+            <field name="model">cham_cong</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Chấm công nhân viên</div>
+                        <group col="2" string="Thông tin chấm công">
+                            <field name="nhan_vien_id" options="{'no_create': True}"/>
+                            <field name="ngay_cham"/>
+                            <field name="gio_vao" widget="datetime"/>
+                            <field name="gio_ra" widget="datetime"/>
+                            <field name="so_gio_lam" readonly="1"/>
+                            <field name="trang_thai" readonly="1"/>
+                        </group>
+                        <group string="Ghi chú">
+                            <field name="ghi_chu" nolabel="1" placeholder="Nhập ghi chú nếu có..."/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_cham_cong_tree" model="ir.ui.view">
+            <field name="name">cham_cong.tree</field>
+            <field name="model">cham_cong</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="nhan_vien_id"/>
+                    <field name="ngay_cham"/>
+                    <field name="gio_vao" widget="datetime"/>
+                    <field name="gio_ra" widget="datetime"/>
+                    <field name="so_gio_lam"/>
+                    <field name="trang_thai" widget="badge" 
+                           decoration-success="trang_thai == 'da_ra'"
+                           decoration-warning="trang_thai == 'da_vao'"
+                           decoration-info="trang_thai == 'chua_cham'"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_cham_cong_search">
+            <field name="model">cham_cong</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="nhan_vien_id"/>
+                    <field name="ngay_cham"/>
+                    <field name="trang_thai"/>
+                    <filter string="Đã ra" name="da_ra" domain="[('trang_thai', '=', 'da_ra')]"/>
+                    <filter string="Đã vào" name="da_vao" domain="[('trang_thai', '=', 'da_vao')]"/>
+                    <filter string="Chưa chấm" name="chua_cham" domain="[('trang_thai', '=', 'chua_cham')]"/>
+                    <separator/>
+                    <group expand="0" string="Nhóm theo">
+                        <filter string="Nhân viên" name="group_nhan_vien" context="{'group_by': 'nhan_vien_id'}"/>
+                        <filter string="Ngày chấm" name="group_ngay_cham" context="{'group_by': 'ngay_cham'}"/>
+                        <filter string="Trạng thái" name="group_trang_thai" context="{'group_by': 'trang_thai'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_cham_cong" model="ir.actions.act_window">
+            <field name="name">Chấm công</field>
+            <field name="res_model">cham_cong</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_cham_cong_search"/>
+        </record>
+    </data>
+</odoo>
+

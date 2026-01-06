@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_phong_ban_form" model="ir.ui.view">
+            <field name="name">phong_ban.form</field>
+            <field name="model">phong_ban</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Phòng Ban</div>
+                        <group col="4" string="Thông tin chung">
+                            <field name="ma_dinh_danh"/>
+                            <field name="ten_phong_ban"/>
+                            <field name="phong_ban_id" 
+                                   domain="[('id', '!=', id)]"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="truong_phong_id" 
+                                   options="{'no_create': True}"/>
+                            <field name="trang_thai"/>
+                            <field name="ngay_thanh_lap"/>
+                            <field name="so_luong_nhan_vien" readonly="1"/>
+                        </group>
+                        <group col="2" string="Thông tin liên hệ">
+                            <field name="dia_chi" placeholder="Địa chỉ phòng ban..."/>
+                            <field name="so_dien_thoai"/>
+                            <field name="email"/>
+                        </group>
+                        <group col="1" string="Mô tả">
+                            <field name="mo_ta" placeholder="Nhập mô tả về phòng ban..."/>
+                        </group>
+                        <notebook>
+                            <page string="Danh sách nhân viên">
+                                <field name="nhan_vien_ids" nolabel="1">
+                                    <tree>
+                                        <field name="ma_dinh_danh"/>
+                                        <field name="ho_va_ten"/>
+                                        <field name="email"/>
+                                        <field name="so_dien_thoai"/>
+                                        <field name="luong"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Phòng ban con">
+                                <field name="phong_ban_con_ids" nolabel="1">
+                                    <tree>
+                                        <field name="ma_dinh_danh"/>
+                                        <field name="ten_phong_ban"/>
+                                        <field name="trang_thai"/>
+                                        <field name="so_luong_nhan_vien"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_phong_ban_tree" model="ir.ui.view">
+            <field name="name">phong_ban.tree</field>
+            <field name="model">phong_ban</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="trang_thai == 'dang_hoat_dong'" 
+                      decoration-muted="trang_thai == 'ngung_hoat_dong'"
+                      decoration-warning="trang_thai == 'tam_dung'">
+                    <field name="ma_dinh_danh"/>
+                    <field name="ten_phong_ban"/>
+                    <field name="phong_ban_id"/>
+                    <field name="truong_phong_id"/>
+                    <field name="trang_thai"/>
+                    <field name="so_luong_nhan_vien"/>
+                    <field name="ngay_thanh_lap"/>
+                    <field name="so_dien_thoai"/>
+                    <field name="email"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Search View -->
+        <record model="ir.ui.view" id="phong_ban_search">
+            <field name="model">phong_ban</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="ma_dinh_danh"/>
+                    <field name="ten_phong_ban"/>
+                    <field name="phong_ban_id"/>
+                    <field name="truong_phong_id"/>
+                    <field name="nhan_vien_ids"/>
+                    <field name="so_dien_thoai"/>
+                    <field name="email"/>
+                    <separator/>
+                    <filter string="Đang hoạt động" 
+                            name="dang_hoat_dong" 
+                            domain="[('trang_thai', '=', 'dang_hoat_dong')]"/>
+                    <filter string="Tạm dừng" 
+                            name="tam_dung" 
+                            domain="[('trang_thai', '=', 'tam_dung')]"/>
+                    <filter string="Ngừng hoạt động" 
+                            name="ngung_hoat_dong" 
+                            domain="[('trang_thai', '=', 'ngung_hoat_dong')]"/>
+                    <separator/>
+                    <filter string="Có phòng ban con" 
+                            name="co_phong_ban_con" 
+                            domain="[('phong_ban_con_ids', '!=', False)]"/>
+                    <filter string="Có nhân viên" 
+                            name="co_nhan_vien" 
+                            domain="[('nhan_vien_ids', '!=', False)]"/>
+                    <separator/>
+                    <filter string="Nhóm theo phòng ban cha" 
+                            name="group_by_phong_ban_id" 
+                            context="{'group_by': 'phong_ban_id'}"/>
+                    <filter string="Nhóm theo trạng thái" 
+                            name="group_by_trang_thai" 
+                            context="{'group_by': 'trang_thai'}"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_phong_ban" model="ir.actions.act_window">
+            <field name="name">Phòng Ban</field>
+            <field name="res_model">phong_ban</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="phong_ban_search"/>
+            <field name="context">{'search_default_dang_hoat_dong': 1}</field>
+        </record>
+    </data>
+</odoo>
+
