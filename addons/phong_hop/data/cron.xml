@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Scheduled Action: Kiểm tra phiếu mượn phòng quá hạn hàng ngày -->
+        <record id="ir_cron_check_phieu_muon_phong_qua_han" model="ir.cron">
+            <field name="name">Kiểm tra phiếu mượn phòng quá hạn</field>
+            <field name="model_id" ref="model_phieu_muon_phong"/>
+            <field name="state">code</field>
+            <field name="code">model.action_check_qua_han()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</odoo>

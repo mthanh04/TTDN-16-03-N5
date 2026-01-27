@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Graph View: Tổng quan -->
+        <record id="view_tai_san_graph_overview" model="ir.ui.view">
+            <field name="name">tai_san.graph.overview</field>
+            <field name="model">tai_san</field>
+            <field name="arch" type="xml">
+                <graph string="Tổng quan số lượng" type="bar" stacked="False">
+                    <field name="loai_tai_san_id"/>
+                    <field name="so_luong" type="measure"/>
+                    <field name="so_luong_dang_muon" type="measure"/>
+                    <field name="so_luong_kha_dung" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Graph View: Theo trạng thái -->
+        <record id="view_tai_san_graph_by_status" model="ir.ui.view">
+            <field name="name">tai_san.graph.by.status</field>
+            <field name="model">tai_san</field>
+            <field name="arch" type="xml">
+                <graph string="Theo trạng thái sử dụng" type="bar">
+                    <field name="trang_thai_su_dung"/>
+                    <field name="so_luong" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Graph View: Biểu đồ tròn theo loại -->
+        <record id="view_tai_san_graph_pie" model="ir.ui.view">
+            <field name="name">tai_san.graph.pie</field>
+            <field name="model">tai_san</field>
+            <field name="arch" type="xml">
+                <graph string="Phân bổ theo loại" type="pie">
+                    <field name="loai_tai_san_id"/>
+                    <field name="so_luong" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Pivot View for Statistics -->
+        <record id="view_tai_san_pivot" model="ir.ui.view">
+            <field name="name">tai_san.pivot</field>
+            <field name="model">tai_san</field>
+            <field name="arch" type="xml">
+                <pivot string="Phân tích chi tiết">
+                    <field name="loai_tai_san_id" type="row"/>
+                    <field name="trang_thai_su_dung" type="col"/>
+                    <field name="so_luong" type="measure"/>
+                    <field name="so_luong_dang_muon" type="measure"/>
+                    <field name="so_luong_kha_dung" type="measure"/>
+                    <field name="tong_gia_mua" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Dashboard Action -->
+        <record id="action_tai_san_dashboard" model="ir.actions.act_window">
+            <field name="name">Dashboard Tài sản</field>
+            <field name="res_model">tai_san</field>
+            <field name="view_mode">graph,pivot,tree,form</field>
+            <field name="view_id" ref="view_tai_san_graph_overview"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Dashboard thống kê tài sản
+                </p>
+                <p>
+                    • Tổng quan: So sánh Tổng - Đang mượn - Khả dụng<br/>
+                    • Theo trạng thái: Chưa cấp, Đã cấp, Đang mượn, Bảo trì...<br/>
+                    • Pivot: Phân tích chi tiết theo loại và trạng thái
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_tai_san_dashboard"
+                  name="Dashboard"
+                  parent="menu_quan_ly_tai_san"
+                  action="action_tai_san_dashboard"
+                  sequence="1"/>
+
+    </data>
+</odoo>

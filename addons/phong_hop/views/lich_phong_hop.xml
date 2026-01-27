@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- ================= FORM ================= -->
+        <record id="view_lich_phong_hop_form" model="ir.ui.view">
+            <field name="name">lich_phong_hop.form</field>
+            <field name="model">lich_phong_hop</field>
+            <field name="arch" type="xml">
+                <form string="Lịch phòng họp">
+                    <header>
+                        <button name="action_submit" string="Gửi duyệt" type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('trang_thai', '!=', 'draft')]}"/>
+
+                        <button name="action_approve" string="Duyệt" type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('trang_thai', '!=', 'cho_duyet')]}"/>
+
+                        <button name="action_reject" string="Từ chối" type="object"
+                                attrs="{'invisible': [('trang_thai', '!=', 'cho_duyet')]}"/>
+
+                        <button name="action_cancel" string="Hủy" type="object"
+                                attrs="{'invisible': [('trang_thai', 'in', ['rejected','completed','cancelled'])]}"/>
+
+                        <field name="trang_thai" widget="statusbar"
+                               statusbar_visible="draft,cho_duyet,approved,rejected,completed"/>
+                    </header>
+
+                    <sheet>
+                        <group col="2">
+                            <group string="Thông tin đặt phòng">
+                                <field name="phong_hop_id"/>
+                                <field name="nguoi_dat_id" 
+                                       domain="[('trang_thai', '=', 'dang_lam')]"
+                                       options="{'no_create': True}"
+                                       placeholder="Chọn nhân viên đang làm việc..."/>
+                                <field name="thoi_gian_bat_dau"/>
+                                <field name="thoi_gian_ket_thuc"/>
+                                <field name="phieu_muon_id" readonly="1"/>
+                            </group>
+
+                            <group string="Thông tin duyệt">
+                                <field name="nguoi_duyet_id" readonly="1"/>
+                                <field name="ngay_duyet" readonly="1"/>
+                                <field name="ly_do_tu_choi"
+                                       attrs="{'invisible': [('trang_thai', '!=', 'rejected')],
+                                              'required': [('trang_thai', '=', 'rejected')]}"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <field name="muc_dich"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ================= TREE ================= -->
+        <record id="view_lich_phong_hop_tree" model="ir.ui.view">
+            <field name="name">lich_phong_hop.tree</field>
+            <field name="model">lich_phong_hop</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="phong_hop_id"/>
+                    <field name="nguoi_dat_id"/>
+                    <field name="thoi_gian_bat_dau"/>
+                    <field name="thoi_gian_ket_thuc"/>
+                    <field name="trang_thai"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ================= CALENDAR ================= -->
+        <record id="view_lich_phong_hop_calendar" model="ir.ui.view">
+            <field name="name">lich_phong_hop.calendar</field>
+            <field name="model">lich_phong_hop</field>
+            <field name="arch" type="xml">
+                <calendar date_start="thoi_gian_bat_dau"
+                          date_stop="thoi_gian_ket_thuc"
+                          color="phong_hop_id">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!-- ================= SEARCH ================= -->
+        <record id="view_lich_phong_hop_search" model="ir.ui.view">
+            <field name="name">lich_phong_hop.search</field>
+            <field name="model">lich_phong_hop</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="phong_hop_id"/>
+                    <field name="nguoi_dat_id"/>
+                    <field name="trang_thai"/>
+
+                    <filter name="filter_today" string="Hôm nay"
+                        domain="[('thoi_gian_bat_dau','&gt;=',context_today()),
+                                 ('thoi_gian_bat_dau','&lt;',context_today() + 1)]"/>
+
+                    <filter name="filter_approved" string="Đã duyệt" domain="[('trang_thai','=','approved')]"/>
+                    <filter name="filter_pending" string="Chờ duyệt" domain="[('trang_thai','=','cho_duyet')]"/>
+
+                    <group expand="0" string="Nhóm theo">
+                        <filter name="group_by_phong" string="Phòng" context="{'group_by':'phong_hop_id'}"/>
+                        <filter name="group_by_nguoi_dat" string="Người đặt" context="{'group_by':'nguoi_dat_id'}"/>
+                        <filter name="group_by_trang_thai" string="Trạng thái" context="{'group_by':'trang_thai'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- ================= ACTION ================= -->
+        <record id="action_lich_phong_hop" model="ir.actions.act_window">
+            <field name="name">Lịch phòng họp</field>
+            <field name="res_model">lich_phong_hop</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="search_view_id" ref="view_lich_phong_hop_search"/>
+        </record>
+
+    </data>
+</odoo>

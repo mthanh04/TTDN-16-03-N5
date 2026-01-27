@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_loai_tai_san_form" model="ir.ui.view">
+            <field name="name">loai_tai_san.form</field>
+            <field name="model">loai_tai_san</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Loại tài sản</div>
+                        <group>
+                            <field name="name"/>
+                            <field name="so_luong_tai_san" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="mo_ta" placeholder="Mô tả loại tài sản..."/>
+                        </group>
+                        <notebook>
+                            <page string="Danh sách tài sản">
+                                <field name="tai_san_ids" nolabel="1">
+                                    <tree>
+                                        <field name="ma_tai_san"/>
+                                        <field name="ten_tai_san"/>
+                                        <field name="so_luong"/>
+                                        <field name="tong_gia_mua"/>
+                                        <field name="trang_thai_su_dung"/>
+                                        <field name="nguoi_quan_ly_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_loai_tai_san_tree" model="ir.ui.view">
+            <field name="name">loai_tai_san.tree</field>
+            <field name="model">loai_tai_san</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="so_luong_tai_san"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_loai_tai_san_search" model="ir.ui.view">
+            <field name="name">loai_tai_san.search</field>
+            <field name="model">loai_tai_san</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_loai_tai_san" model="ir.actions.act_window">
+            <field name="name">Loại tài sản</field>
+            <field name="res_model">loai_tai_san</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_loai_tai_san_search"/>
+        </record>
+    </data>
+</odoo>

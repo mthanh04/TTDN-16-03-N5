@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Sequence cho mã tài sản -->
+        <record id="seq_tai_san" model="ir.sequence">
+            <field name="name">Mã tài sản</field>
+            <field name="code">tai_san</field>
+            <field name="prefix">TS-</field>
+            <field name="padding">6</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="implementation">standard</field>
+        </record>
+
+        <!-- Sequence cho Bảo trì tài sản -->
+        <record id="seq_bao_tri_tai_san" model="ir.sequence">
+            <field name="name">Bảo trì tài sản</field>
+            <field name="code">bao_tri_tai_san</field>
+            <field name="prefix">BT/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="implementation">standard</field>
+        </record>
+
+        <!-- Sequence cho Điều chuyển tài sản -->
+        <record id="seq_dieu_chuyen_tai_san" model="ir.sequence">
+            <field name="name">Điều chuyển tài sản</field>
+            <field name="code">dieu_chuyen_tai_san</field>
+            <field name="prefix">DC/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="implementation">standard</field>
+        </record>
+
+        <!-- Sequence cho Phiếu mượn tài sản -->
+        <record id="seq_phieu_muon_tai_san" model="ir.sequence">
+            <field name="name">Phiếu mượn tài sản</field>
+            <field name="code">phieu_muon_tai_san</field>
+            <field name="prefix">PM/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="implementation">standard</field>
+        </record>
+    </data>
+</odoo>

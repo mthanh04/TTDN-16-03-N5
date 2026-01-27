@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_phong_hop_form" model="ir.ui.view">
+            <field name="name">phong_hop.form</field>
+            <field name="model">phong_hop</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Phòng họp</div>
+                        <group col="2">
+                            <group string="Thông tin cơ bản">
+                                <field name="ma_phong" readonly="1"/>
+                                <field name="ten_phong"/>
+                                <field name="suc_chua"/>
+                                <field name="vi_tri"/>
+                                <field name="trang_thai"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="mo_ta" placeholder="Mô tả phòng họp..."/>
+                        </group>
+
+                        <notebook>
+                            <page string="Tài sản">
+                                <field name="tai_san_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="loai_tai_san_id"/>
+                                        <field name="tai_san_id" 
+                                               placeholder="Chọn loại tài sản trước..."
+                                               options="{'no_create': True}"
+                                               attrs="{'readonly': [('loai_tai_san_id', '=', False)]}"
+                                               domain="[('loai_tai_san_id', '=', loai_tai_san_id)] if loai_tai_san_id else []"/>
+                                        <field name="name" readonly="1"/>
+                                        <field name="so_luong"/>
+                                        <field name="tinh_trang"/>
+                                        <field name="la_tai_san_co_dinh"/>
+                                        <field name="ghi_chu" optional="hide"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Lịch đặt phòng">
+                                <field name="lich_phong_hop_ids" nolabel="1">
+                                    <tree>
+                                        <field name="nguoi_dat_id"/>
+                                        <field name="thoi_gian_bat_dau"/>
+                                        <field name="thoi_gian_ket_thuc"/>
+                                        <field name="muc_dich"/>
+                                        <field name="trang_thai"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Phiếu mượn">
+                                <field name="phieu_muon_ids" nolabel="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="nguoi_muon_id"/>
+                                        <field name="ngay_muon"/>
+                                        <field name="ngay_tra"/>
+                                        <field name="trang_thai"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_phong_hop_tree" model="ir.ui.view">
+            <field name="name">phong_hop.tree</field>
+            <field name="model">phong_hop</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ma_phong"/>
+                    <field name="ten_phong"/>
+                    <field name="suc_chua"/>
+                    <field name="vi_tri"/>
+                    <field name="trang_thai"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_phong_hop_search" model="ir.ui.view">
+            <field name="name">phong_hop.search</field>
+            <field name="model">phong_hop</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="ma_phong"/>
+                    <field name="ten_phong"/>
+                    <field name="vi_tri"/>
+                    <filter string="Sẵn sàng" name="san_sang" domain="[('trang_thai', '=', 'san_sang')]"/>
+                    <filter string="Đang sử dụng" name="dang_su_dung" domain="[('trang_thai', '=', 'dang_su_dung')]"/>
+                    <filter string="Bảo trì" name="bao_tri" domain="[('trang_thai', '=', 'bao_tri')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_phong_hop" model="ir.actions.act_window">
+            <field name="name">Phòng họp</field>
+            <field name="res_model">phong_hop</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_phong_hop_search"/>
+        </record>
+    </data>
+</odoo>

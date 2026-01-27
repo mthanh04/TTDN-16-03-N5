@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Người dùng chỉ thấy tài sản được cấp cho mình -->
+        <record id="tai_san_user_rule" model="ir.rule">
+            <field name="name">Người dùng chỉ thấy tài sản được cấp</field>
+            <field name="model_id" ref="model_tai_san"/>
+            <field name="domain_force">
+                ['|',
+                    ('nguoi_su_dung_id.user_id', '=', user.id),
+                    ('phong_ban_id.truong_phong_id.user_id', '=', user.id)
+                ]
+            </field>
+            <field name="groups" eval="[(4, ref('group_asset_user'))]"/>
+        </record>
+
+        <!-- Quản lý thấy toàn bộ -->
+        <record id="tai_san_manager_rule" model="ir.rule">
+            <field name="name">Quản lý thấy toàn bộ tài sản</field>
+            <field name="model_id" ref="model_tai_san"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('group_asset_manager'))]"/>
+        </record>
+
+        <!-- KHÔNG có rule cho Admin -->
+    </data>
+</odoo>

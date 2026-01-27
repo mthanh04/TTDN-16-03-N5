@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Tree -->
+        <record id="view_lich_su_muon_phong_tree" model="ir.ui.view">
+            <field name="name">lich.su.muon.phong.tree</field>
+            <field name="model">lich_su_muon_phong</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="thoi_gian"/>
+                    <field name="phong_hop_id"/>
+                    <field name="nguoi_muon_id"/>
+                    <field name="hanh_dong"/>
+                    <field name="ngay_muon"/>
+                    <field name="ngay_tra"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form -->
+        <record id="view_lich_su_muon_phong_form" model="ir.ui.view">
+            <field name="name">lich.su.muon.phong.form</field>
+            <field name="model">lich_su_muon_phong</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Thông tin cơ bản">
+                                <field name="phieu_id"/>
+                                <field name="lich_phong_hop_id"/>
+                                <field name="phong_hop_id"/>
+                                <field name="nguoi_muon_id"/>
+                                <field name="hanh_dong"/>
+                            </group>
+                            <group string="Thời gian">
+                                <field name="thoi_gian"/>
+                                <field name="ngay_muon"/>
+                                <field name="ngay_du_kien_tra"/>
+                                <field name="ngay_tra"/>
+                            </group>
+                        </group>
+                        <group string="Tài sản sử dụng">
+                            <field name="tai_san_ids" nolabel="1"/>
+                        </group>
+                        <group string="Ghi chú">
+                            <field name="ghi_chu" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_lich_su_muon_phong" model="ir.actions.act_window">
+            <field name="name">Lịch sử mượn phòng</field>
+            <field name="res_model">lich_su_muon_phong</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

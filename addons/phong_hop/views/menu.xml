@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Menu gốc -->
+        <menuitem
+            id="menu_quan_ly_phong_hop"
+            name="Quản lý Phòng họp"
+            sequence="11"
+        />
+
+        <!-- Phòng họp -->
+        <menuitem
+            id="menu_phong_hop"
+            name="Phòng họp"
+            parent="menu_quan_ly_phong_hop"
+            sequence="1"
+            action="action_phong_hop"
+        />
+
+        <!-- Lịch phòng họp -->
+        <menuitem
+            id="menu_lich_phong_hop"
+            name="Lịch phòng họp"
+            parent="menu_quan_ly_phong_hop"
+            sequence="2"
+            action="action_lich_phong_hop"
+        />
+
+        <!-- Phiếu mượn phòng -->
+        <menuitem
+            id="menu_phieu_muon_phong"
+            name="Phiếu mượn phòng"
+            parent="menu_quan_ly_phong_hop"
+            sequence="3"
+            action="action_phieu_muon_phong"
+        />
+
+        <!-- Tài sản trong phòng -->
+        <menuitem
+            id="menu_phong_hop_tai_san"
+            name="Tài sản trong phòng"
+            parent="menu_quan_ly_phong_hop"
+            sequence="4"
+            action="action_phong_hop_tai_san"
+        />
+
+        <!-- Lịch sử mượn phòng -->
+        <menuitem
+            id="menu_lich_su_muon_phong"
+            name="Lịch sử mượn phòng"
+            parent="menu_quan_ly_phong_hop"
+            sequence="5"
+            action="action_lich_su_muon_phong"
+        />
+
+    </data>
+</odoo>

@@ -1,6 +1,9 @@
 from odoo import models, fields, api
 from datetime import date
 from odoo.exceptions import ValidationError
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class NhanVien(models.Model):
@@ -8,6 +11,65 @@ class NhanVien(models.Model):
     _description = 'Bảng chứa thông tin nhân viên'
     _rec_name = 'ho_va_ten'
     _order = 'ten asc, tuoi desc'
+    
+    def _auto_init(self):
+        """Tự động tạo các cột mới nếu chưa tồn tại"""
+        super()._auto_init()
+        cr = self.env.cr
+        
+        # Kiểm tra và tạo cột user_id
+        try:
+            cr.execute("""
+                SELECT column_name 
+                FROM information_schema.columns 
+                WHERE table_name='nhan_vien' AND column_name='user_id'
+            """)
+            if not cr.fetchone():
+                cr.execute("""
+                    ALTER TABLE nhan_vien 
+                    ADD COLUMN user_id INTEGER REFERENCES res_users(id) ON DELETE SET NULL
+                """)
+                _logger.info("Created column user_id in nhan_vien table")
+        except Exception as e:
+            _logger.warning("Could not create user_id column: %s", e)
+        
+        # Kiểm tra và tạo cột chuc_vu_id
+        try:
+            cr.execute("""
+                SELECT column_name 
+                FROM information_schema.columns 
+                WHERE table_name='nhan_vien' AND column_name='chuc_vu_id'
+            """)
+            if not cr.fetchone():
+                cr.execute("""
+                    ALTER TABLE nhan_vien 
+                    ADD COLUMN chuc_vu_id INTEGER REFERENCES chuc_vu(id) ON DELETE SET NULL
+                """)
+                _logger.info("Created column chuc_vu_id in nhan_vien table")
+        except Exception as e:
+            _logger.warning("Could not create chuc_vu_id column: %s", e)
+        
+        # Kiểm tra và tạo cột trang_thai
+        try:
+            cr.execute("""
+                SELECT column_name 
+                FROM information_schema.columns 
+                WHERE table_name='nhan_vien' AND column_name='trang_thai'
+            """)
+            if not cr.fetchone():
+                cr.execute("""
+                    ALTER TABLE nhan_vien 
+                    ADD COLUMN trang_thai VARCHAR
+                """)
+                # Cập nhật giá trị mặc định cho các bản ghi cũ
+                cr.execute("""
+                    UPDATE nhan_vien 
+                    SET trang_thai = 'dang_lam' 
+                    WHERE trang_thai IS NULL
+                """)
+                _logger.info("Created column trang_thai in nhan_vien table")
+        except Exception as e:
+            _logger.warning("Could not create trang_thai column: %s", e)
 
     
     ma_dinh_danh = fields.Char(
@@ -43,6 +105,28 @@ class NhanVien(models.Model):
 
     luong = fields.Float("Lương", digits=(16, 0))
     anh = fields.Binary("Ảnh")
+    
+    # Các trường mới cho liên kết với module khác
+    user_id = fields.Many2one(
+        'res.users',
+        string="Tài khoản người dùng",
+        help="Liên kết với tài khoản hệ thống"
+    )
+    
+    chuc_vu_id = fields.Many2one(
+        'chuc_vu',
+        string="Chức vụ"
+    )
+    
+    trang_thai = fields.Selection(
+        [
+            ('dang_lam', 'Đang làm việc'),
+            ('nghi', 'Nghỉ việc')
+        ],
+        string="Trạng thái",
+        default='dang_lam',
+        required=False
+    )
 
    
     lich_su_cong_tac_ids = fields.One2many(

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- LỊCH PHÒNG HỌP -->
+        <record id="lich_phong_hop_user_rule" model="ir.rule">
+            <field name="name">Người dùng chỉ thấy lịch của mình</field>
+            <field name="model_id" ref="model_lich_phong_hop"/>
+            <field name="domain_force">[('nguoi_dat_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_meeting_user'))]"/>
+        </record>
+
+        <record id="lich_phong_hop_manager_rule" model="ir.rule">
+            <field name="name">Quản lý thấy toàn bộ lịch</field>
+            <field name="model_id" ref="model_lich_phong_hop"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('group_meeting_manager'))]"/>
+        </record>
+
+        <!-- PHIẾU MƯỢN PHÒNG -->
+        <record id="phieu_muon_phong_user_rule" model="ir.rule">
+            <field name="name">Người dùng chỉ thấy phiếu mượn của mình</field>
+            <field name="model_id" ref="model_phieu_muon_phong"/>
+            <field name="domain_force">[('nguoi_muon_id.user_id','=',user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_meeting_user'))]"/>
+        </record>
+
+        <record id="phieu_muon_phong_manager_rule" model="ir.rule">
+            <field name="name">Quản lý thấy toàn bộ phiếu mượn</field>
+            <field name="model_id" ref="model_phieu_muon_phong"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('group_meeting_manager'))]"/>
+        </record>
+
+        <!-- LỊCH SỬ MƯỢN -->
+        <record id="lich_su_muon_phong_user_rule" model="ir.rule">
+            <field name="name">Người dùng chỉ thấy lịch sử của mình</field>
+            <field name="model_id" ref="model_lich_su_muon_phong"/>
+            <field name="domain_force">[('nguoi_muon_id.user_id','=',user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_meeting_user'))]"/>
+        </record>
+
+        <record id="lich_su_muon_phong_manager_rule" model="ir.rule">
+            <field name="name">Quản lý thấy toàn bộ lịch sử</field>
+            <field name="model_id" ref="model_lich_su_muon_phong"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('group_meeting_manager'))]"/>
+        </record>
+
+        <!-- KHÔNG có rule cho Admin -->
+
+    </data>
+</odoo>

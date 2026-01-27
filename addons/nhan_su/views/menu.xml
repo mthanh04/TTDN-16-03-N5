@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record id="action_qlns_root" model="ir.actions.act_window">
+            <field name="name">Quản lý nhân sự</field>
+            <field name="res_model">nhan_vien</field>
+            <field name="view_mode">tree,form</field>
+        </record>
         <menuitem
             id="menu_root"
             name="QLNS"
+            action="action_qlns_root"
             sequence="0"/>
           
         <menuitem name="Quản lý nhân viên" 

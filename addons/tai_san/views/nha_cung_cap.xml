@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Form view -->
+        <record id="view_nha_cung_cap_form" model="ir.ui.view">
+            <field name="name">nha_cung_cap.form</field>
+            <field name="model">nha_cung_cap</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="ma_ncc"/>
+                                <field name="ten_ncc"/>
+                                <field name="nguoi_lien_he"/>
+                                <field name="sdt"/>
+                            </group>
+                            <group>
+                                <field name="email"/>
+                                <field name="website"/>
+                                <field name="so_luong_tai_san"/>
+                                <field name="tong_gia_tri_cung_cap"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="dia_chi"/>
+                            <field name="ghi_chu"/>
+                        </group>
+                        <notebook>
+                            <page string="Tài sản cung cấp">
+                                <field name="tai_san_ids">
+                                    <tree>
+                                        <field name="ma_tai_san"/>
+                                        <field name="ten_tai_san"/>
+                                        <field name="so_luong"/>
+                                        <field name="tong_gia_mua"/>
+                                        <field name="trang_thai_su_dung"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree view -->
+        <record id="view_nha_cung_cap_tree" model="ir.ui.view">
+            <field name="name">nha_cung_cap.tree</field>
+            <field name="model">nha_cung_cap</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ma_ncc"/>
+                    <field name="ten_ncc"/>
+                    <field name="sdt"/>
+                    <field name="email"/>
+                    <field name="so_luong_tai_san"/>
+                    <field name="tong_gia_tri_cung_cap"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_nha_cung_cap" model="ir.actions.act_window">
+            <field name="name">Nhà cung cấp</field>
+            <field name="res_model">nha_cung_cap</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

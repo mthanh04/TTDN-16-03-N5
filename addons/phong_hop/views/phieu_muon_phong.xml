@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Tree -->
+        <record id="view_phieu_muon_phong_tree" model="ir.ui.view">
+            <field name="name">phieu.muon.phong.tree</field>
+            <field name="model">phieu_muon_phong</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="trang_thai=='draft'"
+                      decoration-success="trang_thai=='da_tra'"
+                      decoration-danger="trang_thai=='qua_han'">
+                    <field name="name"/>
+                    <field name="phong_hop_id"/>
+                    <field name="nguoi_muon_id"/>
+                    <field name="ngay_muon"/>
+                    <field name="ngay_tra"/>
+                    <field name="trang_thai"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form -->
+        <record id="view_phieu_muon_phong_form" model="ir.ui.view">
+            <field name="name">phieu.muon.phong.form</field>
+            <field name="model">phieu_muon_phong</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_muon" string="Mượn phòng" type="object"
+                                attrs="{'invisible': [('trang_thai', '!=', 'draft')]}"
+                                class="btn-primary"/>
+                        <button name="action_tra" string="Trả phòng" type="object"
+                                attrs="{'invisible': [('trang_thai', '!=', 'dang_muon')]}"
+                                class="btn-success"/>
+
+                        <field name="trang_thai" widget="statusbar"
+                               statusbar_visible="draft,dang_muon,da_tra,qua_han"/>
+                    </header>
+
+                    <sheet>
+                        <group>
+                            <group string="Thông tin mượn phòng">
+                                <field name="phong_hop_id"/>
+                                <field name="nguoi_muon_id" 
+                                       domain="[('trang_thai', '=', 'dang_lam')]"
+                                       options="{'no_create': True}"
+                                       placeholder="Chọn nhân viên đang làm việc..."/>
+                                <field name="lich_phong_hop_id" readonly="1"/>
+                                <field name="ngay_muon"/>
+                                <field name="ngay_du_kien_tra"/>
+                                <field name="ngay_tra" readonly="1"/>
+                            </group>
+                            <group string="Chi tiết">
+                                <field name="muc_dich" placeholder="Mục đích sử dụng phòng..."/>
+                            </group>
+                        </group>
+                        
+                        <!-- Asset Warning Group -->
+                        <group class="oe_warning" string="⚠️ Cảnh báo Tài sản" 
+                               attrs="{'invisible': [('asset_warning', '=', False)]}">
+                            <field name="asset_warning" nolabel="1" readonly="1" 
+                                   widget="text" class="text-danger" 
+                                   style="white-space: pre-line; color: #d9534f; font-weight: bold;"/>
+                            <field name="ignore_asset_warning" 
+                                   attrs="{'invisible': [('trang_thai', '!=', 'draft')]}"/>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Tài sản sử dụng">
+                                <field name="tai_san_ids" nolabel="1" readonly="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="loai_tai_san_id"/>
+                                        <field name="so_luong"/>
+                                        <field name="tinh_trang"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_phieu_muon_phong" model="ir.actions.act_window">
+            <field name="name">Phiếu mượn phòng</field>
+            <field name="res_model">phieu_muon_phong</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

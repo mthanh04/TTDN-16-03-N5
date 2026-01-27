@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="module_category_asset" model="ir.module.category">
+            <field name="name">Tài sản</field>
+            <field name="sequence">11</field>
+        </record>
+
+        <record id="group_asset_user" model="res.groups">
+            <field name="name">Người dùng Tài sản</field>
+            <field name="category_id" ref="module_category_asset"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_asset_manager" model="res.groups">
+            <field name="name">Quản lý Tài sản</field>
+            <field name="category_id" ref="module_category_asset"/>
+            <field name="implied_ids" eval="[(4, ref('group_asset_user'))]"/>
+        </record>
+
+        <!-- Admin KHÔNG kế thừa user để tránh record rule -->
+        <record id="group_asset_admin" model="res.groups">
+            <field name="name">Quản trị Tài sản</field>
+            <field name="category_id" ref="module_category_asset"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_system'))]"/>
+        </record>
+
+    </data>
+</odoo>

@@ -23,6 +23,9 @@
                             <field name="dia_chi"/>
                             <field name="luong"/>
                             <field name="anh" widget="image"/>
+                            <field name="user_id"/>
+                            <field name="chuc_vu_id"/>
+                            <field name="trang_thai"/>
                         </group>
                         <notebook>
                             <page string="Danh sách lịch sử công tác">
@@ -66,6 +69,8 @@
                     <field name="so_dien_thoai"/>
                     <field name="so_bhxh"/>
                     <field name="luong"/>
+                    <field name="chuc_vu_id"/>
+                    <field name="trang_thai"/>
                 </tree>
             </field>
         </record>

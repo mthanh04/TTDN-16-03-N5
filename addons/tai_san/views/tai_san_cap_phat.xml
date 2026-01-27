@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_tai_san_cap_phat_tree" model="ir.ui.view">
+        <field name="name">tai.san.cap.phat.tree</field>
+        <field name="model">tai_san_cap_phat</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="tai_san_id"/>
+                <field name="nhan_vien_id"/>
+                <field name="ngay_cap"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_tai_san_cap_phat_form" model="ir.ui.view">
+        <field name="name">tai.san.cap.phat.form</field>
+        <field name="model">tai_san_cap_phat</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_approve" type="object"
+                        string="Duyệt cấp phát"
+                        states="draft"
+                        class="btn-primary"/>
+                    <button name="action_cancel" type="object"
+                        string="Hủy"
+                        states="draft"
+                        class="btn-secondary"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="tai_san_id"/>
+                        <field name="nhan_vien_id"/>
+                        <field name="ngay_cap"/>
+                        <field name="ghi_chu"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_tai_san_cap_phat" model="ir.actions.act_window">
+        <field name="name">Cấp phát tài sản</field>
+        <field name="res_model">tai_san_cap_phat</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

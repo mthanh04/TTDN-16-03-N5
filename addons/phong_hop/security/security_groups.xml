@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Category -->
+        <record id="module_category_meeting" model="ir.module.category">
+            <field name="name">Phòng họp</field>
+            <field name="description">Quản lý phòng họp</field>
+            <field name="sequence">12</field>
+        </record>
+
+        <!-- User -->
+        <record id="group_meeting_user" model="res.groups">
+            <field name="name">Người dùng Phòng họp</field>
+            <field name="category_id" ref="module_category_meeting"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Manager -->
+        <record id="group_meeting_manager" model="res.groups">
+            <field name="name">Quản lý Phòng họp</field>
+            <field name="category_id" ref="module_category_meeting"/>
+            <field name="implied_ids" eval="[(4, ref('group_meeting_user'))]"/>
+        </record>
+
+        <!-- Admin (KHÔNG kế thừa user để tránh record rule) -->
+        <record id="group_meeting_admin" model="res.groups">
+            <field name="name">Quản trị Phòng họp</field>
+            <field name="category_id" ref="module_category_meeting"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_system'))]"/>
+        </record>
+
+    </data>
+</odoo>

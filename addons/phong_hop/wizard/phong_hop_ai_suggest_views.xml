@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Wizard Form -->
+        <record id="view_phong_hop_ai_suggest_form" model="ir.ui.view">
+            <field name="name">phong.hop.ai.suggest.form</field>
+            <field name="model">phong_hop.ai.suggest</field>
+            <field name="arch" type="xml">
+                <form string="AI Gợi ý Phòng họp">
+                    <header>
+                        <button name="action_suggest_with_ai" 
+                                string="Tìm phòng với AI" 
+                                type="object" 
+                                class="btn-primary"
+                                attrs="{'invisible': [('state', '=', 'done')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Yêu cầu của bạn">
+                                <field name="query" nolabel="1" placeholder="VD: Tìm phòng sức chứa hơn 50 người, có máy chiếu và điều hòa"/>
+                            </group>
+                        </group>
+                        
+                        <notebook attrs="{'invisible': [('state', '!=', 'done')]}">
+                            <page string="Phòng AI gợi ý">
+                                <field name="result_ids" nolabel="1">
+                                    <tree decoration-success="score &gt;= 80" 
+                                          decoration-info="score &gt;= 60 and score &lt; 80"
+                                          decoration-warning="score &lt; 60"
+                                          create="false" 
+                                          edit="false">
+                                        <field name="score" widget="progressbar"/>
+                                        <field name="phong_hop_id"/>
+                                        <field name="suc_chua"/>
+                                        <field name="vi_tri"/>
+                                        <field name="tai_san_info" width="200px"/>
+                                        <field name="ly_do"/>
+                                        <button name="action_create_booking" 
+                                                string="Đặt phòng" 
+                                                type="object" 
+                                                class="btn-primary"
+                                                icon="fa-calendar-check-o"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_phong_hop_ai_suggest" model="ir.actions.act_window">
+            <field name="name">AI Gợi ý Phòng họp</field>
+            <field name="res_model">phong_hop.ai.suggest</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Sử dụng AI để tìm phòng họp phù hợp
+                </p>
+                <p>
+                    Nhập yêu cầu bằng tiếng Việt, AI sẽ phân tích và gợi ý phòng tốt nhất!
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_phong_hop_ai_suggest"
+                  name="AI Gợi ý phòng"
+                  parent="menu_phong_hop"
+                  action="action_phong_hop_ai_suggest"
+                  sequence="5"/>
+
+    </data>
+</odoo>
