@@ -1,72 +1,151 @@
+<h2 align="center">
+    <a href="https://dainam.edu.vn/vi/khoa-cong-nghe-thong-tin">
+    🎓 Faculty of Information Technology (DaiNam University)
+    </a>
+</h2>
+<h2 align="center">
+   XÂY DỰNG HỆ THỐNG QUẢN LÝ TÀI SẢN VÀ PHÒNG HỌP
+</h2>
+<div align="center">
+    <p align="center">
+        <img alt="AIoTLab Logo" width="170" src="docs/aiotlab_logo.png" />
+        <img alt="DaiNam University Logo" width="200" src="docs/fitdnu_logo.png" />
+        <img alt="CNTT Logo" width="180" src="docs/dnu_logo.png" />
+    </p>
+
+[![AIoTLab](https://img.shields.io/badge/AIoTLab-green?style=for-the-badge)](https://www.facebook.com/DNUAIoTLab)
+[![Faculty of Information Technology](https://img.shields.io/badge/Faculty%20of%20Information%20Technology-blue?style=for-the-badge)](https://dainam.edu.vn/vi/khoa-cong-nghe-thong-tin)
+[![DaiNam University](https://img.shields.io/badge/DaiNam%20University-orange?style=for-the-badge)](https://dainam.edu.vn)
+
+</div>
+
 ---
-![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
-![GitLab](https://img.shields.io/badge/gitlab-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white)
-![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
-![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
-[![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
+## 📖 1. Giới thiệu hệ thống
 
+Hệ thống **Quản lý Tài sản và Phòng họp** được xây dựng nhằm hỗ trợ doanh nghiệp quản lý tập trung nhân sự, tài sản và phòng họp, giúp tối ưu việc sử dụng tài nguyên và nâng cao hiệu quả quản lý nội bộ.
 
+**Hệ thống**: đóng vai trò trung tâm lưu trữ, xử lý và liên kết dữ liệu giữa các phân hệ.
+**Người dùng**: thực hiện các nghiệp vụ quản lý, theo dõi và khai thác thông tin thông qua giao diện hệ thống.
 
+**Các chức năng chính:**
+- **Nhân sự**:
+    - Quản lý nhân viên, phòng ban, đơn vị, chức vụ
+    - Quản lý chứng chỉ – bằng cấp
+    - Theo dõi lịch sử công tác
+- **Tài sản**:
+    - Quản lý tài sản, loại tài sản, nhà cung cấp
+    - Cấp phát, mượn, điều chuyển, thu hồi tài sản
+    - Theo dõi bảo trì, khấu hao và lịch sử tài sản
+- **Phòng họp**:
+    - Quản lý phòng họp và tài sản phòng họp
+    - Đăng ký, mượn phòng và theo dõi lịch sử sử dụng
+    - AI gợi ý phòng họp phù hợp theo nhu cầu sử dụng
 
-# 1. Cài đặt công cụ, môi trường và các thư viện cần thiết
+---
+ 
+## 🔧 2. Công nghệ sử dụng
 
-## 1.1. Clone project.
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Odoo](https://img.shields.io/badge/Odoo-714B67?style=for-the-badge&logo=odoo&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+
+---
+
+## 🚀 3. Một số hình ảnh minh họa giao diện
+
+### Hình 1: Giao diện tổng quan hệ thống
+![Giao diện tổng quan](docs/giao_dien_tong_quan.jpg)
+
+### Hình 2: Giao diện quản lý nhân sự
+![Quản lý nhân sự](docs/giao_dien_nhan_su.jpg)
+
+### Hình 3: Giao diện quản lý tài sản
+![Quản lý tài sản](docs/giao_dien_tai_san.jpg)
+
+### Hình 4: Giao diện quản lý phòng họp
+![Quản lý phòng họp](docs/giao_dien_phong_hop.jpg)
+
+---
+
+# ⚙️ 4. Hướng dẫn cài đặt và sử dụng
+
+## 4.1. Cài đặt công cụ, môi trường và các thư viện cần thiết
+
+### 4.1.1. Clone project
+
+Clone mã nguồn từ GitHub và chuyển vào thư mục dự án:
+
+```bash
 git clone https://github.com/mthanh04/TTDN-16-03-N5.git
-git checkout 
-
-## 1.2. cài đặt các thư viện cần thiết
-
-Người sử dụng thực thi các lệnh sau đề cài đặt các thư viện cần thiết
-
+cd TTDN-16-03-N5
+git checkout <branch>
 ```
-sudo apt-get install libxml2-dev libxslt-dev libldap2-dev libsasl2-dev libssl-dev python3.10-distutils python3.10-dev build-essential libssl-dev libffi-dev zlib1g-dev python3.10-venv libpq-dev
-```
-## 1.3. khởi tạo môi trường ảo.
+### 4.1.2. Cài đặt các thư viện hệ thống cần thiết
 
-`python3.10 -m venv ./venv`
-Thay đổi trình thông dịch sang môi trường ảo và chạy requirements.txt để cài đặt tiếp các thư viện được yêu cầu
-
-```
-source venv/bin/activate
-pip3 install -r requirements.txt
+```bash
+sudo apt-get install libxml2-dev libxslt-dev libldap2-dev libsasl2-dev \
+libssl-dev python3.10-distutils python3.10-dev build-essential \
+libffi-dev zlib1g-dev python3.10-venv libpq-dev
 ```
 
-# 2. Setup database
+### 4.1.3. Khởi tạo môi trường ảo Python
 
-Khởi tạo database trên docker bằng việc thực thi file dockercompose.yml.
+- Tạo môi trường ảo:
+  
+  ```bash
+  python3.10 -m venv venv
+  ```
 
-`docker-compose up -d`
+- Kích hoạt môi trường ảo và cài đặt các thư viện Python cần thiết:
 
-# 3. Setup tham số chạy cho hệ thống
+  ```bash
+  source venv/bin/activate
+  pip install -r requirements.txt
+  ```
 
-## 3.1. Khởi tạo odoo.conf
+## 4.2. Thiết lập cơ sở dữ liệu
 
-Tạo tệp **odoo.conf** có nội dung như sau:
-
-```
-[options]
-addons_path = addons
-db_host = localhost
-db_password = odoo
-db_user = odoo
-db_port = 5432
-xmlrpc_port = 8069
-```
-Có thể kế thừa từ **odoo.conf.template**
-
-Ngoài ra có thể thêm mổ số parameters như:
-
-```
--c _<đường dẫn đến tệp odoo.conf>_
--u _<tên addons>_ giúp cập nhật addons đó trước khi khởi chạy
--d _<tên database>_ giúp chỉ rõ tên database được sử dụng
---dev=all giúp bật chế độ nhà phát triển 
+```bash
+docker-compose up -d
 ```
 
-# 4. Chạy hệ thống và cài đặt các ứng dụng cần thiết
+## 4.3. Cấu hình tham số chạy hệ thống
 
-Người sử dụng truy cập theo đường dẫn _http://localhost:8069/_ để đăng nhập vào hệ thống.
+### 4.3.1. Khởi tạo file cấu hình odoo.conf
 
-Hoàn tất
+- Tạo file odoo.conf với nội dung sau:
+  
+    ```bash
+    [options]
+    addons_path = addons
+    db_host = localhost
+    db_port = 5432
+    db_user = odoo
+    db_password = odoo
+    xmlrpc_port = 8069
+    ```
+## 4.4. Chạy hệ thống và cài đặt ứng dụng
+
+- Khởi động hệ thống và truy cập trên trình duyệt:
+  
+  ```bash
+  http://localhost:8069
+  ```
+
+---
+
+## 👤 5. Liên hệ
+**Họ tên**: Trịnh Minh Thành, Hoàng Thế Khải, Nguyễn Đức Ngọc.  
+**Lớp**: CNTT 16-03.  
+**Email**: thanhmeo260604@gmail.com.
+
+© 2025 Faculty of Information Technology, DaiNam University. All rights reserved.
+
+
+
+  
+
+
     
