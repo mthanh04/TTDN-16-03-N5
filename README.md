@@ -55,17 +55,20 @@ Hệ thống **Quản lý Tài sản và Phòng họp** được xây dựng nh�
 
 ## 🚀 3. Một số hình ảnh minh họa giao diện
 
-### Hình 1: Giao diện tổng quan hệ thống
-![Giao diện tổng quan](docs/giao_dien_tong_quan.jpg)
+### Hình 1: Giao diện quản lý nhân sự
+![Giao diện quản lý nhân sự](docs/giao_dien_nhan_su.jpg)
 
-### Hình 2: Giao diện quản lý nhân sự
-![Quản lý nhân sự](docs/giao_dien_nhan_su.jpg)
+### Hình 2: Giao diện quản lý tài sản
+![Giao diện quản lý tài sản](docs/giao_dien_tai_san.jpg)
 
-### Hình 3: Giao diện quản lý tài sản
-![Quản lý tài sản](docs/giao_dien_tai_san.jpg)
+### Hình 3: Giao diện phiếu mượn tài sản
+![Giao diện phiếu mượn tài sản](docs/giao_dien_phieu_muon_ts.jpg)
 
-### Hình 4: Giao diện quản lý phòng họp
-![Quản lý phòng họp](docs/giao_dien_phong_hop.jpg)
+### Hình 4: Giao diện thống kê tài sản
+![Giao diện thống kê tài sản](docs/giao_dien_thong_ke.jpg)
+
+### Hình 5: Giao diện AI gợi ý phòng họp
+![Giao diện AI gợi ý phòng họp](docs/giao_dien_ai_goi_y.jpg)
 
 ---
 
